@@ -1,19 +1,18 @@
 package com.accenture.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
+@Entity(name = "VehicleEntity")
 @Data
+@NoArgsConstructor
 @Table(name = "VEHICLE")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
 
     private String brand;
@@ -24,10 +23,10 @@ public abstract class Vehicle {
 
     private int dailyBaseRate;
     private int mileage;
-    private boolean active;
-    private boolean removedFromPark;
+    private String active;
+    private String removedFromPark;
 
-    protected Vehicle(String brand, String model, String type, String color, String license, int mileage, int dailyBaseRate, boolean active, boolean removedFromPark) {
+    protected Vehicle(String brand, String model, String type, String color, String license, int mileage, int dailyBaseRate, String active, String removedFromPark) {
         this.brand = brand;
         this.model = model;
         this.type = type;

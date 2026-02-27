@@ -6,10 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@ToString(callSuper = true)
 @NoArgsConstructor
 @Data
-@Table(name = "CAMPERVAN")
+@Table(name = "CAMPER VAN")
 public class CamperVan extends Vehicle{
 
     @Id
