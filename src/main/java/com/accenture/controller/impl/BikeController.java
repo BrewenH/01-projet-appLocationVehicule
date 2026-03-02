@@ -1,7 +1,6 @@
 package com.accenture.controller.impl;
 
 import com.accenture.controller.BikeApi;
-import com.accenture.models.Bike;
 import com.accenture.service.BikeService;
 import com.accenture.service.dto.BikeRequestDto;
 import com.accenture.service.dto.BikeResponseDto;
@@ -48,5 +47,17 @@ public class BikeController implements BikeApi {
     public ResponseEntity<Void> delete(int id) {
         bikeService.deleteBike(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @Override
+    public ResponseEntity<BikeResponseDto> put(int id, @Valid BikeRequestDto requestDto) {
+        BikeResponseDto responseDto = bikeService.modifyBike(id, requestDto);
+        return ResponseEntity.ok(responseDto);
+    }
+
+    @Override
+    public ResponseEntity<BikeResponseDto> patch(int id, BikeRequestDto requestDto) {
+        BikeResponseDto responseDto = bikeService.partiallyModifyingBike(id, requestDto);
+        return ResponseEntity.ok(responseDto);
     }
 }

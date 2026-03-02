@@ -20,6 +20,8 @@ import java.util.Optional;
 @Transactional
 public class BikeServiceImpl implements BikeService {
 
+    private static final String BIKE_NOT_FOUND = "bike.id.notfound";
+
     private final BikeRepository bikeRepository;
     private final BikeMapper bikeMapper;
     private final MessageSourceAccessor messages;
@@ -44,26 +46,21 @@ public class BikeServiceImpl implements BikeService {
     public BikeResponseDto findById(int id) {
         Optional<Bike> opt = bikeRepository.findById(id);
         if (opt.isEmpty())
-            throw new EntityNotFoundException(messages.getMessage("bike.id.notfound"));
+            throw new EntityNotFoundException(messages.getMessage(BIKE_NOT_FOUND));
         return bikeMapper.toBikeResponseDto(opt.get());
     }
 
     @Override
     public void deleteBike(int id) {
-        Optional<Bike> opt = bikeRepository.findById(id);
-        if (opt.isEmpty())
-            throw new EntityNotFoundException(messages.getMessage("bike.id.notfound"));
-        else
-            throw new BikeException(messages.getMessage("bike.vehicle.exist"));
+        if (!bikeRepository.existsById(id))
+            throw new EntityNotFoundException(messages.getMessage(BIKE_NOT_FOUND));
+        bikeRepository.deleteById(id);
     }
-
     @Override
-    public BikeResponseDto modifyBike(int id, BikeRequestDto dto) {
-        Optional<Bike> opt = bikeRepository.findById(id);
-        if (opt.isEmpty())
-            throw new EntityNotFoundException(messages.getMessage("bike.id.notfound"));
+    public BikeResponseDto modifyBike(int id, BikeRequestDto dto) throws BikeException {
+        Bike bike = bikeRepository.findById(id)
+                        .orElseThrow(()-> new EntityNotFoundException(messages.getMessage(BIKE_NOT_FOUND)));
         check(dto);
-        Bike bike = opt.get();
         bike.setBrand(dto.brand());
         bike.setModel(dto.model());
         bike.setType(dto.type());
@@ -77,17 +74,57 @@ public class BikeServiceImpl implements BikeService {
         bike.setWeight(dto.weight());
         bike.setElectric(dto.electric());
         bike.setDiscBrakes(dto.discBrakes());
-        return bikeMapper.toBikeResponseDto(bike);
+        Bike saved = bikeRepository.save(bike);
+        return bikeMapper.toBikeResponseDto(saved);
     }
 
-//    @Override
-//    public BikeResponseDto partiallyModifying(int id, BikeRequestDto dto) {
-//        Optional<Bike> opt = bikeRepository.findById(id);
-//        if(opt.isEmpty())
-//            throw new EntityNotFoundException(messages.getMessage("bike.id.notfound"));
-//        Bike bike = opt.get();
-//        if(dto.)
-//    }
+    @Override
+    public BikeResponseDto partiallyModifyingBike(int id, BikeRequestDto dto) {
+        Bike bike = bikeRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException(messages.getMessage(BIKE_NOT_FOUND)));
+        if(dto.brand() != null && !dto.brand().isBlank()) {
+            bike.setBrand(dto.brand());
+        }
+        if(dto.model() != null && !dto.model().isBlank()) {
+            bike.setModel(dto.model());
+        }
+        if(dto.type() != null && !dto.type().isBlank()) {
+            bike.setType(dto.type());
+        }
+        if(dto.color() != null && !dto.color().isBlank()) {
+            bike.setColor(dto.color());
+        }
+        if(dto.license() != null && !dto.license().isBlank()) {
+            bike.setLicense(dto.license());
+        }
+        if(dto.mileage() < 0) {
+            bike.setBrand(dto.brand());
+        }
+        if(dto.dailyBaseRate() < 0) {
+            bike.setBrand(dto.brand());
+        }
+        if(dto.active() != null && !dto.active().isBlank()) {
+            bike.setActive(dto.active());
+        }
+        if(dto.removedFromPark() != null && !dto.removedFromPark().isBlank()) {
+            bike.setRemovedFromPark(dto.removedFromPark());
+        }
+        if(dto.frameSize() < 0) {
+            bike.setFrameSize(dto.frameSize());
+        }
+        if(dto.weight() < 0) {
+            bike.setWeight(dto.weight());
+        }
+        if(dto.electric() != null && !dto.electric().isBlank()) {
+            bike.setElectric(dto.electric());
+        }
+        if(dto.discBrakes() != null && !dto.discBrakes().isBlank()) {
+            bike.setDiscBrakes(dto.discBrakes());
+        }
+        Bike saved = bikeRepository.save(bike);
+        return bikeMapper.toBikeResponseDto(saved);
+
+    }
 
     private void check(BikeRequestDto dto) {
         if (dto == null)

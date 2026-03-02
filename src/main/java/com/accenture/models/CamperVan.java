@@ -18,7 +18,7 @@ public class CamperVan extends Vehicle{
     private int NumberOfSeats;
     private String energySources;
     private String transmission;
-    private boolean airConditioning;
+    private String airConditioning;
     private int weight;
     private int height;
     private int numberOfBeds;
@@ -27,17 +27,17 @@ public class CamperVan extends Vehicle{
     private String refrigeratorEquipment;
     private String showerEquipment;
 
-    public CamperVan(String brand, String model, String type, String color, String license, int mileage,
-                     int dailyBaseRate, boolean active, boolean removedFromPark, int numberOfSeats, String energySources, String transmission, Boolean airConditioning, int weight, int height, String kitchenEquipment, int numberOfBeds, String bedLinens, String refrigeratorEquipment, String showerEquipment) {
+    public CamperVan(String brand, String model, String type, String color, String license, int mileage, int dailyBaseRate, String active, String removedFromPark, int numberOfSeats, String energySources, String transmission,
+                     String airConditioning, int weight, int numberOfBeds, int height, String kitchenEquipment, String bedLinens, String refrigeratorEquipment, String showerEquipment) {
         super(brand, model, type, color, license, mileage, dailyBaseRate, active, removedFromPark);
         NumberOfSeats = numberOfSeats;
         this.energySources = energySources;
         this.transmission = transmission;
         this.airConditioning = airConditioning;
         this.weight = weight;
+        this.numberOfBeds = numberOfBeds;
         this.height = height;
         this.kitchenEquipment = kitchenEquipment;
-        this.numberOfBeds = numberOfBeds;
         this.bedLinens = bedLinens;
         this.refrigeratorEquipment = refrigeratorEquipment;
         this.showerEquipment = showerEquipment;
