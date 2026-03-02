@@ -3,7 +3,7 @@ services:
     image: postgres:16
     container_name: formation-postgresql
     environment:
-      POSTGRES_DB: locations
+      POSTGRES_DB: rental
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     ports:
