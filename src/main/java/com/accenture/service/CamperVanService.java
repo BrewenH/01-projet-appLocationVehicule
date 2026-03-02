@@ -14,5 +14,6 @@ public interface CamperVanService {
     List<CamperVanResponseDto> findAll();
     CamperVanResponseDto findById(int id);
     void deleteCamperVan(int id);
-
+    CamperVanResponseDto modifyCamperVan(int id, CamperVanRequestDto dto) throws CamperVanException;
+    CamperVanResponseDto partiallyModifyingCamperVan(int id, CamperVanRequestDto dto);
 }

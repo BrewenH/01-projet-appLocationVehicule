@@ -98,10 +98,10 @@ public class BikeServiceImpl implements BikeService {
             bike.setLicense(dto.license());
         }
         if(dto.mileage() < 0) {
-            bike.setBrand(dto.brand());
+            bike.setMileage(dto.mileage());
         }
         if(dto.dailyBaseRate() < 0) {
-            bike.setBrand(dto.brand());
+            bike.setDailyBaseRate(dto.dailyBaseRate());
         }
         if(dto.active() != null && !dto.active().isBlank()) {
             bike.setActive(dto.active());

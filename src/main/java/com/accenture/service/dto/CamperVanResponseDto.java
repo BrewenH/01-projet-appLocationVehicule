@@ -1,7 +1,8 @@
 package com.accenture.service.dto;
 
 public record CamperVanResponseDto(
-        int NumberOfSeats,
+        int id,
+        int numberOfSeats,
         String energySources,
         String transmission,
         String airConditioning,

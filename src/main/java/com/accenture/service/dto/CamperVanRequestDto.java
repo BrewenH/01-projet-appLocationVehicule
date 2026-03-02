@@ -11,7 +11,7 @@ public record CamperVanRequestDto(
         String active,
         String removedFromPark,
 
-        int NumberOfSeats,
+        int numberOfSeats,
         String energySources,
         String transmission,
         String airConditioning,

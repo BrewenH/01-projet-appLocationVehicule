@@ -5,14 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Entity
+@Entity(name = "CampervanEntity")
 @NoArgsConstructor
 @Data
-@Table(name = "CAMPER VAN")
+@Table(name = "CAMPERVAN")
 public class CamperVan extends Vehicle{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int id;
 
     private int NumberOfSeats;

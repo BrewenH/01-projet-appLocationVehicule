@@ -1,7 +1,5 @@
 package com.accenture.service.dto;
 
-import jakarta.validation.constraints.NotNull;
-
 public record BikeRequestDto(
         String brand,
         String model,

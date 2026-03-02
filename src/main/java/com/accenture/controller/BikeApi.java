@@ -1,7 +1,6 @@
 package com.accenture.controller;
 
 import com.accenture.controller.advice.ErrorDto;
-import com.accenture.models.Bike;
 import com.accenture.service.dto.BikeRequestDto;
 import com.accenture.service.dto.BikeResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,7 +9,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
