@@ -8,19 +8,19 @@ public record CamperVanRequestDto(
         String license,
         int dailyBaseRate,
         int mileage,
-        String active,
-        String removedFromPark,
+        boolean active,
+        boolean removedFromPark,
 
         int numberOfSeats,
         String energySources,
         String transmission,
-        String airConditioning,
+        boolean airConditioning,
         int weight,
         int height,
         int numberOfBeds,
-        String kitchenEquipment,
-        String bedLinens,
-        String refrigeratorEquipment,
-        String showerEquipment
+        boolean kitchenEquipment,
+        boolean bedLinens,
+        boolean refrigeratorEquipment,
+        boolean showerEquipment
 ) {
 }

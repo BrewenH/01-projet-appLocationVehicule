@@ -19,8 +19,7 @@ public class Motorbike extends Vehicle {
     private int seatHeight;
     private String transmission;
 
-    public Motorbike(String brand, String model, String type, String color, String license, int mileage, int dailyBaseRate, String active, String removedFromPark, int numberOfCylinder, int engineDisplacement, int weight, int kWPower, int seatHeight,
-                     String transmission) {
+    public Motorbike(String brand, String model, String type, String color, String license, int mileage, int dailyBaseRate, boolean active, boolean removedFromPark, int numberOfCylinder, int engineDisplacement, int weight, int kWPower, int seatHeight, String transmission) {
         super(brand, model, type, color, license, mileage, dailyBaseRate, active, removedFromPark);
         this.numberOfCylinder = numberOfCylinder;
         this.engineDisplacement = engineDisplacement;

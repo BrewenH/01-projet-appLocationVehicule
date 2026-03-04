@@ -14,8 +14,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@RestController
+
 @AllArgsConstructor
+@RestController
 public class BikeController implements BikeApi {
 
     private final BikeService bikeService;
@@ -29,6 +30,7 @@ public class BikeController implements BikeApi {
     public ResponseEntity<BikeResponseDto> getById(int id) {
         return ResponseEntity.ok(bikeService.findById(id));
     }
+
 
     @Override
     public ResponseEntity<Void> add(BikeRequestDto requestDto) {

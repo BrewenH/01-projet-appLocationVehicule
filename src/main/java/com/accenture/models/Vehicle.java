@@ -23,10 +23,10 @@ public abstract class Vehicle {
 
     private int dailyBaseRate;
     private int mileage;
-    private String active;
-    private String removedFromPark;
+    private boolean active;
+    private boolean removedFromPark;
 
-    protected Vehicle(String brand, String model, String type, String color, String license, int mileage, int dailyBaseRate, String active, String removedFromPark) {
+    protected Vehicle(String brand, String model, String type, String color, String license, int mileage, int dailyBaseRate, boolean active, boolean removedFromPark) {
         this.brand = brand;
         this.model = model;
         this.type = type;

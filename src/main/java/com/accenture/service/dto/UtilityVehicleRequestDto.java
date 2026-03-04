@@ -1,15 +1,13 @@
 package com.accenture.service.dto;
 
-public record CamperVanResponseDto(
-        int id,
-
+public record UtilityVehicleRequestDto(
         String brand,
         String model,
-        String color,
         String type,
+        String color,
         String license,
-        int dailyBaseRate,
         int mileage,
+        int dailyBaseRate,
         boolean active,
         boolean removedFromPark,
 
@@ -17,12 +15,8 @@ public record CamperVanResponseDto(
         String energySources,
         String transmission,
         boolean airConditioning,
+        int maximumWeight,
         int weight,
-        int height,
-        int numberOfBeds,
-        boolean kitchenEquipment,
-        boolean bedLinens,
-        boolean refrigeratorEquipment,
-        boolean showerEquipment
+        int capacity
 ) {
 }

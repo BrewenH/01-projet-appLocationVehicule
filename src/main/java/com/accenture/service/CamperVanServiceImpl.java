@@ -109,12 +109,6 @@ public class CamperVanServiceImpl implements CamperVanService{
         if(dto.dailyBaseRate() < 0) {
             camperVan.setDailyBaseRate(dto.dailyBaseRate());
         }
-        if(dto.active() != null && !dto.active().isBlank()) {
-            camperVan.setActive(dto.active());
-        }
-        if(dto.removedFromPark() != null && !dto.removedFromPark().isBlank()) {
-            camperVan.setRemovedFromPark(dto.removedFromPark());
-        }
         if(dto.numberOfSeats() < 0) {
             camperVan.setNumberOfSeats(dto.numberOfSeats());
         }
@@ -124,9 +118,7 @@ public class CamperVanServiceImpl implements CamperVanService{
         if(dto.transmission() != null && !dto.transmission().isBlank()) {
             camperVan.setTransmission(dto.transmission());
         }
-        if(dto.airConditioning() != null && !dto.airConditioning().isBlank()) {
-            camperVan.setAirConditioning(dto.airConditioning());
-        }
+
         if(dto.weight() < 0) {
             camperVan.setWeight(dto.weight());
         }
@@ -136,18 +128,8 @@ public class CamperVanServiceImpl implements CamperVanService{
         if(dto.numberOfBeds() < 0) {
             camperVan.setNumberOfBeds(dto.numberOfBeds());
         }
-        if(dto.kitchenEquipment() != null && !dto.kitchenEquipment().isBlank()) {
-            camperVan.setKitchenEquipment(dto.kitchenEquipment());
-        }
-        if(dto.bedLinens() != null && !dto.bedLinens().isBlank()) {
-            camperVan.setBedLinens(dto.bedLinens());
-        }
-        if(dto.refrigeratorEquipment() != null && !dto.refrigeratorEquipment().isBlank()) {
-            camperVan.setRefrigeratorEquipment(dto.refrigeratorEquipment());
-        }
-        if(dto.showerEquipment() != null && !dto.showerEquipment().isBlank()) {
-            camperVan.setShowerEquipment(dto.showerEquipment());
-        }
+        camperVan.setActive(dto.active());
+        camperVan.setRemovedFromPark(dto.removedFromPark());
         CamperVan saved = camperVanRepository.save(camperVan);
         return camperVanMapper.toCamperVanResponseDto(saved);
 

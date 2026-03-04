@@ -103,23 +103,14 @@ public class BikeServiceImpl implements BikeService {
         if(dto.dailyBaseRate() < 0) {
             bike.setDailyBaseRate(dto.dailyBaseRate());
         }
-        if(dto.active() != null && !dto.active().isBlank()) {
-            bike.setActive(dto.active());
-        }
-        if(dto.removedFromPark() != null && !dto.removedFromPark().isBlank()) {
-            bike.setRemovedFromPark(dto.removedFromPark());
-        }
+        bike.setActive(dto.active());
+        bike.setRemovedFromPark(dto.removedFromPark());
+
         if(dto.frameSize() < 0) {
             bike.setFrameSize(dto.frameSize());
         }
         if(dto.weight() < 0) {
             bike.setWeight(dto.weight());
-        }
-        if(dto.electric() != null && !dto.electric().isBlank()) {
-            bike.setElectric(dto.electric());
-        }
-        if(dto.discBrakes() != null && !dto.discBrakes().isBlank()) {
-            bike.setDiscBrakes(dto.discBrakes());
         }
         Bike saved = bikeRepository.save(bike);
         return bikeMapper.toBikeResponseDto(saved);

@@ -8,13 +8,13 @@ public record BikeRequestDto(
         String license,
         int mileage,
         int dailyBaseRate,
-        String active,
-        String removedFromPark,
+        boolean active,
+        boolean removedFromPark,
 
         int frameSize,
         int weight,
-        String electric,
-        String discBrakes
+        boolean electric,
+        boolean discBrakes
 
 ) {
 

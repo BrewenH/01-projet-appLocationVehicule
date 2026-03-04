@@ -1,8 +1,6 @@
 package com.accenture.service.dto;
 
-public record BikeResponseDto(
-        int id,
-
+public record MotorbikeRequestDto(
         String brand,
         String model,
         String type,
@@ -13,9 +11,11 @@ public record BikeResponseDto(
         boolean active,
         boolean removedFromPark,
 
-        int frameSize,
+        int numberOfCylinder,
+        int engineDisplacement,
         int weight,
-        boolean electric,
-        boolean disckBrakes
-        ) {
+        int kWPower,
+        int seatHeight,
+        String transmission
+) {
 }
