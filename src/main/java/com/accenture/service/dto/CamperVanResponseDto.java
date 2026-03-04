@@ -1,7 +1,9 @@
 package com.accenture.service.dto;
 
+import java.util.UUID;
+
 public record CamperVanResponseDto(
-        int id,
+        UUID id,
 
         String brand,
         String model,

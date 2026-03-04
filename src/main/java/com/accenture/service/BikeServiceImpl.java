@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -30,6 +31,10 @@ public class BikeServiceImpl implements BikeService {
     public void addBike(BikeRequestDto dto) throws BikeException {
         check(dto);
         Bike bike = bikeMapper.toBike(dto);
+        if(dto.electric() == true)
+            bike.setBatteryCapacity(dto.batteryCapacity());
+        if(dto.electric() == true)
+            bike.setAutonomy(dto.autonomy());
         bikeRepository.save(bike);
     }
 
@@ -43,7 +48,7 @@ public class BikeServiceImpl implements BikeService {
 
     @Override
     @Transactional(readOnly = true)
-    public BikeResponseDto findById(int id) {
+    public BikeResponseDto findById(UUID id) {
         Optional<Bike> opt = bikeRepository.findById(id);
         if (opt.isEmpty())
             throw new EntityNotFoundException(messages.getMessage(BIKE_NOT_FOUND));
@@ -51,13 +56,13 @@ public class BikeServiceImpl implements BikeService {
     }
 
     @Override
-    public void deleteBike(int id) {
+    public void deleteBike(UUID id) {
         if (!bikeRepository.existsById(id))
             throw new EntityNotFoundException(messages.getMessage(BIKE_NOT_FOUND));
         bikeRepository.deleteById(id);
     }
     @Override
-    public BikeResponseDto modifyBike(int id, BikeRequestDto dto) throws BikeException {
+    public BikeResponseDto modifyBike(UUID id, BikeRequestDto dto) throws BikeException {
         Bike bike = bikeRepository.findById(id)
                         .orElseThrow(()-> new EntityNotFoundException(messages.getMessage(BIKE_NOT_FOUND)));
         check(dto);
@@ -79,7 +84,7 @@ public class BikeServiceImpl implements BikeService {
     }
 
     @Override
-    public BikeResponseDto partiallyModifyingBike(int id, BikeRequestDto dto) {
+    public BikeResponseDto partiallyModifyingBike(UUID id, BikeRequestDto dto) {
         Bike bike = bikeRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(messages.getMessage(BIKE_NOT_FOUND)));
         if(dto.brand() != null && !dto.brand().isBlank()) {

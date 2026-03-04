@@ -7,11 +7,13 @@ import com.accenture.service.dto.MotorbikeResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -29,11 +31,12 @@ public class MotorbikeController implements MotorbikeApi {
         return ResponseEntity.ok(motorbikeService.findById(id));
     }
 
+    @Secured("ROLE_ADMIN")
     @Override
     public ResponseEntity<Void> add(MotorbikeRequestDto requestDto) {
         motorbikeService.addMotorbike(requestDto);
         List<MotorbikeResponseDto> all = motorbikeService.findAll();
-        int id = all.get(all.size() - 1).id();
+        UUID id = all.get(all.size() - 1).id();
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

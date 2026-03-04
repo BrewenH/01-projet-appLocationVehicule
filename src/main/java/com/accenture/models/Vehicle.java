@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity(name = "VehicleEntity")
 @Data
 @NoArgsConstructor
@@ -13,7 +15,7 @@ public abstract class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private int id;
+    private UUID id;
 
     private String brand;
     private String model;

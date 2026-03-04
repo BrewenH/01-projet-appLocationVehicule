@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -34,7 +35,7 @@ public class CamperVanController implements CamperVanApi {
     public ResponseEntity<Void> add(CamperVanRequestDto requestDto) {
         camperVanService.addCamperVan(requestDto);
         List<CamperVanResponseDto> all = camperVanService.findAll();
-        int id = all.get(all.size() - 1).id();
+        UUID id = all.get(all.size() - 1).id();
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

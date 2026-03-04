@@ -7,11 +7,13 @@ import com.accenture.service.dto.CarResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -29,11 +31,12 @@ public class CarController implements CarApi {
         return ResponseEntity.ok(carService.findById(id));
     }
 
+    @Secured("ROLE_ADMIN")
     @Override
     public ResponseEntity<Void> add(CarRequestDto requestDto) {
         carService.addCar(requestDto);
         List<CarResponseDto> all = carService.findAll();
-        int id = all.get(all.size() - 1).id();
+        UUID id = all.get(all.size() - 1).id();
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

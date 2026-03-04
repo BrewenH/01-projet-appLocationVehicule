@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 
 @Entity(name = "CarEntity")
 @NoArgsConstructor
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "CAR")
 public class Car extends Vehicle {
 
-    private int id;
+    private UUID id;
 
     private int numberOfSeats;
     private String energySources;

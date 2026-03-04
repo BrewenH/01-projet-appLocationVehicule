@@ -1,7 +1,9 @@
 package com.accenture.service.dto;
 
+import java.util.UUID;
+
 public record CarResponseDto (
-        int id,
+        UUID id,
 
         String brand,
         String model,

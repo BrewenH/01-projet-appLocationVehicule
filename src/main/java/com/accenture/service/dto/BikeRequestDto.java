@@ -14,7 +14,9 @@ public record BikeRequestDto(
         int frameSize,
         int weight,
         boolean electric,
-        boolean discBrakes
+        boolean discBrakes,
+        int batteryCapacity,
+        int autonomy
 
 ) {
 

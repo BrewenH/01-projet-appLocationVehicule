@@ -1,7 +1,9 @@
 package com.accenture.service.dto;
 
+import java.util.UUID;
+
 public record BikeResponseDto(
-        int id,
+        UUID id,
 
         String brand,
         String model,
@@ -16,6 +18,8 @@ public record BikeResponseDto(
         int frameSize,
         int weight,
         boolean electric,
-        boolean disckBrakes
+        boolean disckBrakes,
+        int batteryCapacity,
+        int autonomy
         ) {
 }

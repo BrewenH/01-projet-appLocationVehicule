@@ -4,13 +4,15 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity(name = "MotorbikeEntity")
 @NoArgsConstructor
 @Data
 @Table(name = "MOTORBIKE")
 public class Motorbike extends Vehicle {
 
-    private int id;
+    private UUID id;
 
     private int numberOfCylinder;
     private int engineDisplacement;
