@@ -1,5 +1,6 @@
 package com.accenture.models;
 
+import com.accenture.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -22,8 +23,8 @@ public class Client extends User {
     private List<String> licenseList;
     private boolean desactivated;
 
-    public Client(String lastName, String firstName, String email, String password, LocalDate birthDate, LocalDate registrationDate, List<String> licenseList, boolean desactivated) {
-        super(lastName, firstName, email, password);
+    public Client(String lastName, String firstName, String email, String password, Role role, LocalDate birthDate, LocalDate registrationDate, List<String> licenseList, boolean desactivated) {
+        super(lastName, firstName, email, password, role);
         this.birthDate = birthDate;
         this.registrationDate = registrationDate;
         this.licenseList = licenseList;

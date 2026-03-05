@@ -27,7 +27,7 @@ public class MotorbikeController implements MotorbikeApi {
     }
 
     @Override
-    public ResponseEntity<MotorbikeResponseDto> getById(int id) {
+    public ResponseEntity<MotorbikeResponseDto> getById(UUID id) {
         return ResponseEntity.ok(motorbikeService.findById(id));
     }
 
@@ -46,19 +46,19 @@ public class MotorbikeController implements MotorbikeApi {
     }
 
     @Override
-    public ResponseEntity<Void> delete(int id) {
+    public ResponseEntity<Void> delete(UUID id) {
         motorbikeService.deleteMotorbike(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Override
-    public ResponseEntity<MotorbikeResponseDto> put(int id, MotorbikeRequestDto requestDto) {
+    public ResponseEntity<MotorbikeResponseDto> put(UUID id, MotorbikeRequestDto requestDto) {
         MotorbikeResponseDto responseDto = motorbikeService.modifyMotorbike(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
     @Override
-    public ResponseEntity<MotorbikeResponseDto> patch(int id, MotorbikeRequestDto requestDto) {
+    public ResponseEntity<MotorbikeResponseDto> patch(UUID id, MotorbikeRequestDto requestDto) {
         MotorbikeResponseDto responseDto = motorbikeService.partiallyModifyingMotorbike(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }

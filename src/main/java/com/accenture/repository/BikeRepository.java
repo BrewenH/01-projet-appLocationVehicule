@@ -6,12 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface BikeRepository extends JpaRepository<Bike, Integer> {
+public interface BikeRepository extends JpaRepository<Bike, UUID> {
 
-
-    Optional<Bike> findById(UUID id);
-
-    boolean existsById(UUID id);
-
-    void deleteById(UUID id);
 }

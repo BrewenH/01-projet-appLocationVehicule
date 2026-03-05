@@ -4,6 +4,7 @@ import com.accenture.controller.AdministratorApi;
 import com.accenture.service.AdministratorService;
 import com.accenture.service.dto.AdministratorRequestDto;
 import com.accenture.service.dto.AdministratorResponseDto;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class AdministratorController implements AdministratorApi {
     }
 
     @Override
-    public ResponseEntity<Void> add(AdministratorRequestDto requestDto) {
+    public ResponseEntity<Void> add(@Valid AdministratorRequestDto requestDto) {
         administratorService.addAdministrator(requestDto);
         List<AdministratorResponseDto> all = administratorService.findAll();
         UUID id = all.get(all.size() - 1).id();

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -43,7 +44,7 @@ public class CarServiceImpl implements CarService{
 
     @Override
     @Transactional(readOnly = true)
-    public CarResponseDto findById(int id) {
+    public CarResponseDto findById(UUID id) {
         Optional<Car> opt = carRepository.findById(id);
         if(opt.isEmpty())
             throw new EntityNotFoundException(messages.getMessage(CAR_NOT_FOUND));
@@ -51,14 +52,14 @@ public class CarServiceImpl implements CarService{
     }
 
     @Override
-    public void deleteCar(int id) {
+    public void deleteCar(UUID id) {
         if (!carRepository.existsById(id))
             throw new EntityNotFoundException(messages.getMessage(CAR_NOT_FOUND));
         carRepository.deleteById(id);
     }
 
     @Override
-    public CarResponseDto modifyCar(int id, CarRequestDto dto) {
+    public CarResponseDto modifyCar(UUID id, CarRequestDto dto) {
         Car car = carRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(messages.getMessage(CAR_NOT_FOUND)));
         check(dto);
@@ -82,7 +83,7 @@ public class CarServiceImpl implements CarService{
     }
 
     @Override
-    public CarResponseDto partiallyModifyingCar(int id, CarRequestDto dto) {
+    public CarResponseDto partiallyModifyingCar(UUID id, CarRequestDto dto) {
         Car car = carRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(CAR_NOT_FOUND)));
         if (dto.brand() != null && !dto.brand().isBlank()) {

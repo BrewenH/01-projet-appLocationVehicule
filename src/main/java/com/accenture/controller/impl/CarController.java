@@ -27,7 +27,7 @@ public class CarController implements CarApi {
     }
 
     @Override
-    public ResponseEntity<CarResponseDto> getById(int id) {
+    public ResponseEntity<CarResponseDto> getById(UUID id) {
         return ResponseEntity.ok(carService.findById(id));
     }
 
@@ -46,19 +46,19 @@ public class CarController implements CarApi {
     }
 
     @Override
-    public ResponseEntity<Void> delete(int id) {
+    public ResponseEntity<Void> delete(UUID id) {
         carService.deleteCar(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Override
-    public ResponseEntity<CarResponseDto> put(int id, CarRequestDto requestDto) {
+    public ResponseEntity<CarResponseDto> put(UUID id, CarRequestDto requestDto) {
         CarResponseDto responseDto = carService.modifyCar(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
     @Override
-    public ResponseEntity<CarResponseDto> patch(int id, CarRequestDto requestDto) {
+    public ResponseEntity<CarResponseDto> patch(UUID id, CarRequestDto requestDto) {
         CarResponseDto responseDto = carService.partiallyModifyingCar(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }

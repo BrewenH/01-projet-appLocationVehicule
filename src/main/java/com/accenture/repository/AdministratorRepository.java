@@ -6,10 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface AdministratorRepository extends JpaRepository<Administrator, Integer> {
-    Optional<Administrator> findById(UUID id);
+public interface AdministratorRepository extends JpaRepository<Administrator, UUID> {
 
-    boolean existsById(UUID id);
-
-    void deleteById(UUID id);
 }

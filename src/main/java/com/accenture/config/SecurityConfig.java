@@ -18,12 +18,16 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true
+)
 
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
@@ -33,25 +37,27 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers(HttpMethod.POST, "/bikes/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/cars/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/motorbikes/**").hasRole("ADMIN")
-//                        .anyRequest().permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "/clients/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/clients/**").hasRole("CLIENT")
+
                 );
         return http.build();
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Bean
-    UserDetailsManager userDetailsManager(DataSource dataSource){
+    UserDetailsManager userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        jdbcUserDetailsManager.setUsersByUsernameQuery("select login, password, 1 from user where login = ?");
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("select login, role from user where login = ?");
+        jdbcUserDetailsManager.setUsersByUsernameQuery("select email, password, 1 from client where email = ?");
+        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("select email, role from client where email = ?");
         return jdbcUserDetailsManager;
     }
+
+
 
 }

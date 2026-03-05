@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -41,9 +42,9 @@ public class MotorbikeServiceImpl implements MotorbikeService{
                 .toList();
     }
 
-    @Override
     @Transactional(readOnly = true)
-    public MotorbikeResponseDto findById(int id) {
+    @Override
+    public MotorbikeResponseDto findById(UUID id) {
         Optional<Motorbike> opt = motorbikeRepository.findById(id);
         if(opt.isEmpty())
             throw new EntityNotFoundException(messages.getMessage(MOTORBIKE_NOT_FOUND));
@@ -51,14 +52,14 @@ public class MotorbikeServiceImpl implements MotorbikeService{
     }
 
     @Override
-    public void deleteMotorbike(int id) {
+    public void deleteMotorbike(UUID id) {
         if(!motorbikeRepository.existsById(id))
             throw new EntityNotFoundException(messages.getMessage(MOTORBIKE_NOT_FOUND));
         motorbikeRepository.deleteById(id);
     }
 
     @Override
-    public MotorbikeResponseDto modifyMotorbike(int id, MotorbikeRequestDto dto) {
+    public MotorbikeResponseDto modifyMotorbike(UUID id, MotorbikeRequestDto dto) {
         Motorbike motorbike = motorbikeRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(messages.getMessage(MOTORBIKE_NOT_FOUND)));
         check(dto);
@@ -82,7 +83,7 @@ public class MotorbikeServiceImpl implements MotorbikeService{
     }
 
     @Override
-    public MotorbikeResponseDto partiallyModifyingMotorbike(int id, MotorbikeRequestDto dto) {
+    public MotorbikeResponseDto partiallyModifyingMotorbike(UUID id, MotorbikeRequestDto dto) {
         Motorbike motorbike = motorbikeRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(messages.getMessage(MOTORBIKE_NOT_FOUND)));
         if (dto.brand() != null && !dto.brand().isBlank()) {

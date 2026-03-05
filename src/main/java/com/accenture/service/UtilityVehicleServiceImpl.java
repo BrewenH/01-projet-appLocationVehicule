@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -43,7 +44,7 @@ public class UtilityVehicleServiceImpl implements UtilityVehicleService{
 
     @Override
     @Transactional(readOnly = true)
-    public UtilityVehicleResponseDto findById(int id) {
+    public UtilityVehicleResponseDto findById(UUID id) {
         Optional<UtilityVehicle> opt = utilityVehicleRepository.findById(id);
         if(opt.isEmpty())
             throw new EntityNotFoundException(messages.getMessage(UTILITY_VEHICLE_NOT_FOUND));
@@ -51,14 +52,14 @@ public class UtilityVehicleServiceImpl implements UtilityVehicleService{
     }
 
     @Override
-    public void deleteUtilityVehicle(int id) {
+    public void deleteUtilityVehicle(UUID id) {
         if(!utilityVehicleRepository.existsById(id))
             throw new EntityNotFoundException(messages.getMessage(UTILITY_VEHICLE_NOT_FOUND));
         utilityVehicleRepository.deleteById(id);
     }
 
     @Override
-    public UtilityVehicleResponseDto modifyUtilityVehicle(int id, UtilityVehicleRequestDto dto) {
+    public UtilityVehicleResponseDto modifyUtilityVehicle(UUID id, UtilityVehicleRequestDto dto) {
         UtilityVehicle utilityVehicle = utilityVehicleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(UTILITY_VEHICLE_NOT_FOUND)));
         check(dto);
@@ -83,7 +84,7 @@ public class UtilityVehicleServiceImpl implements UtilityVehicleService{
     }
 
     @Override
-    public UtilityVehicleResponseDto partiallyModifyingUtilityVehicle(int id, UtilityVehicleRequestDto dto) {
+    public UtilityVehicleResponseDto partiallyModifyingUtilityVehicle(UUID id, UtilityVehicleRequestDto dto) {
         UtilityVehicle utilityVehicle = utilityVehicleRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(messages.getMessage(UTILITY_VEHICLE_NOT_FOUND)));
         if (dto.brand() != null && !dto.brand().isBlank()) {

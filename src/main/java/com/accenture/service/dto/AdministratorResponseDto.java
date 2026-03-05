@@ -1,5 +1,7 @@
 package com.accenture.service.dto;
 
+import com.accenture.Role;
+
 import java.util.UUID;
 
 public record AdministratorResponseDto(
@@ -9,6 +11,7 @@ public record AdministratorResponseDto(
         String firstName,
         String email,
         String password,
+        Role role,
         String fonction
 ) {
 }

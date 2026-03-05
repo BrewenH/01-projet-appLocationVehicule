@@ -26,7 +26,7 @@ public class UtilityVehicleController implements UtilityVehicleApi {
     }
 
     @Override
-    public ResponseEntity<UtilityVehicleResponseDto> getById(int id) {
+    public ResponseEntity<UtilityVehicleResponseDto> getById(UUID id) {
         return ResponseEntity.ok(utilityVehicleService.findById(id));
     }
 
@@ -44,19 +44,19 @@ public class UtilityVehicleController implements UtilityVehicleApi {
     }
 
     @Override
-    public ResponseEntity<Void> delete(int id) {
+    public ResponseEntity<Void> delete(UUID id) {
         utilityVehicleService.deleteUtilityVehicle(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Override
-    public ResponseEntity<UtilityVehicleResponseDto> put(int id, UtilityVehicleRequestDto requestDto) {
+    public ResponseEntity<UtilityVehicleResponseDto> put(UUID id, UtilityVehicleRequestDto requestDto) {
         UtilityVehicleResponseDto responseDto = utilityVehicleService.modifyUtilityVehicle(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
     @Override
-    public ResponseEntity<UtilityVehicleResponseDto> patch(int id, UtilityVehicleRequestDto requestDto) {
+    public ResponseEntity<UtilityVehicleResponseDto> patch(UUID id, UtilityVehicleRequestDto requestDto) {
         UtilityVehicleResponseDto responseDto = utilityVehicleService.partiallyModifyingUtilityVehicle(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }

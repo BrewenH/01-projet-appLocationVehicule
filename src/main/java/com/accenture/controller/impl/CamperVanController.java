@@ -27,7 +27,7 @@ public class CamperVanController implements CamperVanApi {
     }
 
     @Override
-    public ResponseEntity<CamperVanResponseDto> getById(int id) {
+    public ResponseEntity<CamperVanResponseDto> getById(UUID id) {
         return ResponseEntity.ok(camperVanService.findById(id));
     }
 
@@ -45,19 +45,19 @@ public class CamperVanController implements CamperVanApi {
     }
 
     @Override
-    public ResponseEntity<Void> delete(int id) {
+    public ResponseEntity<Void> delete(UUID id) {
         camperVanService.deleteCamperVan(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Override
-    public ResponseEntity<CamperVanResponseDto> put(int id, @Valid CamperVanRequestDto requestDto) {
+    public ResponseEntity<CamperVanResponseDto> put(UUID id, @Valid CamperVanRequestDto requestDto) {
         CamperVanResponseDto responseDto = camperVanService.modifyCamperVan(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
     @Override
-    public ResponseEntity<CamperVanResponseDto> patch(int id, CamperVanRequestDto requestDto) {
+    public ResponseEntity<CamperVanResponseDto> patch(UUID id, CamperVanRequestDto requestDto) {
         CamperVanResponseDto responseDto = camperVanService.partiallyModifyingCamperVan(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }

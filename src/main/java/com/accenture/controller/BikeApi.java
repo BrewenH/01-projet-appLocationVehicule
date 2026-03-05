@@ -33,7 +33,7 @@ public interface BikeApi {
 
     @Operation(summary = "Add new bike")
     @ApiResponse(responseCode = "201", description = "Bike created")
-    @ApiResponse(responseCode = "404", description = "Bike not found",
+    @ApiResponse(responseCode = "400", description = "Unvalid request",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PostMapping
     ResponseEntity<Void> add(@RequestBody BikeRequestDto requestDto);
@@ -49,7 +49,9 @@ public interface BikeApi {
 
     @Operation(summary = "Completely replace a bike ")
     @ApiResponse(responseCode = "200", description = "Bike replaced")
-    @ApiResponse(responseCode = "404", description = "Bike not found",
+    @ApiResponse(responseCode = "40", description = "Bike not found",
+            content = @Content(schema = @Schema(implementation = ErrorDto.class)))
+    @ApiResponse(responseCode = "400", description = "Unvalid request",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PutMapping("/{id}")
     ResponseEntity<BikeResponseDto> put(@Parameter(description = "ID of bike", required = true) @PathVariable UUID id, @RequestBody BikeRequestDto requestDto);

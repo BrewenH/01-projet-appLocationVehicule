@@ -49,18 +49,21 @@ public class BikeController implements BikeApi {
         return ResponseEntity.created(location).build();
     }
 
+    @Secured("ROLE_ADMIN")
     @Override
     public ResponseEntity<Void> delete(UUID id) {
         bikeService.deleteBike(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @Secured("ROLE_ADMIN")
     @Override
     public ResponseEntity<BikeResponseDto> put(UUID id, @Valid BikeRequestDto requestDto) {
         BikeResponseDto responseDto = bikeService.modifyBike(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
+    @Secured("ROLE_ADMIN")
     @Override
     public ResponseEntity<BikeResponseDto> patch(UUID id, BikeRequestDto requestDto) {
         BikeResponseDto responseDto = bikeService.partiallyModifyingBike(id, requestDto);

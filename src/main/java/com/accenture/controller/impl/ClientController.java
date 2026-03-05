@@ -4,9 +4,12 @@ import com.accenture.controller.ClientApi;
 import com.accenture.service.ClientService;
 import com.accenture.service.dto.ClientRequestDto;
 import com.accenture.service.dto.ClientResponseDto;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,6 +23,8 @@ public class ClientController implements ClientApi {
 
     private final ClientService clientService;
 
+
+    @PreAuthorize("hasRole('CLIENT')")
     @Override
     public ResponseEntity<List<ClientResponseDto>> getAll() {
         return ResponseEntity.ok(clientService.findAll());
@@ -30,8 +35,9 @@ public class ClientController implements ClientApi {
         return ResponseEntity.ok(clientService.findById(id));
     }
 
+
     @Override
-    public ResponseEntity<Void> add(ClientRequestDto requestDto) {
+    public ResponseEntity<Void> add(@Valid ClientRequestDto requestDto) {
         clientService.addClient(requestDto);
         List<ClientResponseDto> all = clientService.findAll();
         UUID id = all.get(all.size() - 1).id();

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -42,7 +43,7 @@ public class CamperVanServiceImpl implements CamperVanService{
 
     @Override
     @Transactional(readOnly = true)
-    public CamperVanResponseDto findById(int id) {
+    public CamperVanResponseDto findById(UUID id) {
         Optional<CamperVan> opt = camperVanRepository.findById(id);
         if (opt.isEmpty())
             throw new EntityNotFoundException(messages.getMessage(CAMPERVAN_NOT_FOUND));
@@ -50,13 +51,13 @@ public class CamperVanServiceImpl implements CamperVanService{
     }
 
     @Override
-    public void deleteCamperVan(int id) {
+    public void deleteCamperVan(UUID id) {
         if (!camperVanRepository.existsById(id))
             throw new EntityNotFoundException(messages.getMessage(CAMPERVAN_NOT_FOUND));
         camperVanRepository.deleteById(id);
     }
     @Override
-    public CamperVanResponseDto modifyCamperVan(int id, CamperVanRequestDto dto) throws CamperVanException {
+    public CamperVanResponseDto modifyCamperVan(UUID id, CamperVanRequestDto dto) throws CamperVanException {
         CamperVan camperVan = camperVanRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(messages.getMessage(CAMPERVAN_NOT_FOUND)));
         check(dto);
@@ -85,7 +86,7 @@ public class CamperVanServiceImpl implements CamperVanService{
     }
 
     @Override
-    public CamperVanResponseDto partiallyModifyingCamperVan(int id, CamperVanRequestDto dto) {
+    public CamperVanResponseDto partiallyModifyingCamperVan(UUID id, CamperVanRequestDto dto) {
         CamperVan camperVan = camperVanRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(messages.getMessage(CAMPERVAN_NOT_FOUND)));
         if(dto.brand() != null && !dto.brand().isBlank()) {

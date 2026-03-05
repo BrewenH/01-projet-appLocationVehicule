@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Tag(name = "Campervan", description = "Campervan management API")
 @RequestMapping("/campervan")
@@ -28,7 +29,7 @@ public interface CamperVanApi {
     @ApiResponse(responseCode = "404", description = "Campervan not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @GetMapping("/{id}")
-    ResponseEntity<CamperVanResponseDto> getById(@Parameter(description = "Campervan ID", required = true) @PathVariable("id") int id);
+    ResponseEntity<CamperVanResponseDto> getById(@Parameter(description = "Campervan ID", required = true) @PathVariable("id") UUID id);
 
     @Operation(summary = "Add new campervan")
     @ApiResponse(responseCode = "201", description = "Campervan created")
@@ -42,19 +43,19 @@ public interface CamperVanApi {
     @ApiResponse(responseCode = "404", description = "Campervan not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@Parameter(description = "Campervan ID", required = true) @PathVariable("id") int id);
+    ResponseEntity<Void> delete(@Parameter(description = "Campervan ID", required = true) @PathVariable("id") UUID id);
 
     @Operation(summary = "Completely replace a campervan ")
     @ApiResponse(responseCode = "200", description = "Campervan replaced")
     @ApiResponse(responseCode = "404", description = "Campervan not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PutMapping("/{id}")
-    ResponseEntity<CamperVanResponseDto> put(@Parameter(description = "ID of campervan", required = true)@PathVariable int id, @RequestBody CamperVanRequestDto requestDto);
+    ResponseEntity<CamperVanResponseDto> put(@Parameter(description = "ID of campervan", required = true)@PathVariable UUID id, @RequestBody CamperVanRequestDto requestDto);
 
     @Operation(summary = "Partially modify a campervan")
     @ApiResponse(responseCode = "200", description = "Campervan partially modify")
     @ApiResponse(responseCode = "404", description = "Campervan not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PatchMapping("/{id}")
-    ResponseEntity<CamperVanResponseDto> patch(@Parameter(description = "ID of campervan", required = true)@PathVariable int id,@RequestBody CamperVanRequestDto requestDto);
+    ResponseEntity<CamperVanResponseDto> patch(@Parameter(description = "ID of campervan", required = true)@PathVariable UUID id,@RequestBody CamperVanRequestDto requestDto);
 }

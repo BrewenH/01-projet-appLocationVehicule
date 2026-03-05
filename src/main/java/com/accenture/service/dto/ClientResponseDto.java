@@ -1,5 +1,7 @@
 package com.accenture.service.dto;
 
+import com.accenture.Role;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +13,7 @@ public record ClientResponseDto(
         String firstName,
         String email,
         String password,
+        Role role,
 
         LocalDate birthDate,
         LocalDate registrationDate,

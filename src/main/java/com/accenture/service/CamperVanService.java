@@ -8,12 +8,13 @@ import com.accenture.service.dto.CamperVanRequestDto;
 import com.accenture.service.dto.CamperVanResponseDto;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface CamperVanService {
     void addCamperVan(CamperVanRequestDto dto) throws CamperVanException;
     List<CamperVanResponseDto> findAll();
-    CamperVanResponseDto findById(int id);
-    void deleteCamperVan(int id);
-    CamperVanResponseDto modifyCamperVan(int id, CamperVanRequestDto dto) throws CamperVanException;
-    CamperVanResponseDto partiallyModifyingCamperVan(int id, CamperVanRequestDto dto);
+    CamperVanResponseDto findById(UUID id);
+    void deleteCamperVan(UUID id);
+    CamperVanResponseDto modifyCamperVan(UUID id, CamperVanRequestDto dto) throws CamperVanException;
+    CamperVanResponseDto partiallyModifyingCamperVan(UUID id, CamperVanRequestDto dto);
 }

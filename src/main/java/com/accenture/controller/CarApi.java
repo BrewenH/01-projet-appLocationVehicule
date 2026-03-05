@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Tag(name = "Car", description = "Car management API")
 @RequestMapping("/cars")
@@ -28,7 +29,7 @@ public interface CarApi {
     @ApiResponse(responseCode = "404", description = "Car not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @GetMapping("/{id}")
-    ResponseEntity<CarResponseDto> getById(@Parameter(description = "Car ID", required = true) @PathVariable("id") int id);
+    ResponseEntity<CarResponseDto> getById(@Parameter(description = "Car ID", required = true) @PathVariable("id") UUID id);
 
     @Operation(summary = "Add new car")
     @ApiResponse(responseCode = "201", description = "Car created")
@@ -42,19 +43,20 @@ public interface CarApi {
     @ApiResponse(responseCode = "404", description = "Car not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@Parameter(description = "Car ID", required = true) @PathVariable("id") int id);
+    ResponseEntity<Void> delete(@Parameter(description = "Car ID", required = true) @PathVariable("id") UUID id);
 
     @Operation(summary = "Completely replace a car ")
     @ApiResponse(responseCode = "200", description = "Car replaced")
     @ApiResponse(responseCode = "404", description = "Car not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PutMapping("/{id}")
-    ResponseEntity<CarResponseDto> put(@Parameter(description = "ID of car", required = true)@PathVariable int id, @RequestBody CarRequestDto requestDto);
+    ResponseEntity<CarResponseDto> put(@Parameter(description = "ID of car", required = true)@PathVariable UUID id, @RequestBody CarRequestDto requestDto);
 
     @Operation(summary = "Partially modify a car")
     @ApiResponse(responseCode = "200", description = "Car partially modify")
     @ApiResponse(responseCode = "404", description = "Car not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PatchMapping("/{id}")
-    ResponseEntity<CarResponseDto> patch(@Parameter(description = "ID of car", required = true)@PathVariable int id,@RequestBody CarRequestDto requestDto);
+    ResponseEntity<CarResponseDto> patch(@Parameter(description = "ID of car", required = true)@PathVariable UUID id,@RequestBody CarRequestDto requestDto);
+
 }
