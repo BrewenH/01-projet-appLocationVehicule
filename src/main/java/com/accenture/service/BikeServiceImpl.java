@@ -27,15 +27,18 @@ public class BikeServiceImpl implements BikeService {
     private final BikeMapper bikeMapper;
     private final MessageSourceAccessor messages;
 
+
     @Override
-    public void addBike(BikeRequestDto dto) throws BikeException {
+    public BikeResponseDto addBike(BikeRequestDto dto) throws BikeException {
         check(dto);
-        Bike bike = bikeMapper.toBike(dto);
-        if(dto.electric() == true)
-            bike.setBatteryCapacity(dto.batteryCapacity());
-        if(dto.electric() == true)
-            bike.setAutonomy(dto.autonomy());
-        bikeRepository.save(bike);
+        Bike saved = bikeRepository.save(bikeMapper.toBike(dto));
+        return bikeMapper.toBikeResponseDto(saved);
+//        if(dto.electric() == true)
+//            bike.setBatteryCapacity(dto.batteryCapacity());
+//        if(dto.electric() == true)
+//            bike.setAutonomy(dto.autonomy());
+
+
     }
 
     @Override

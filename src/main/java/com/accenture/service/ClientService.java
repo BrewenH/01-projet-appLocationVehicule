@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ClientService {
-    void addClient(ClientRequestDto dto) throws ClientException;
+    ClientResponseDto addClient(ClientRequestDto dto) throws ClientException;
     List<ClientResponseDto> findAll();
     ClientResponseDto findById(UUID id);
     void deleteClient(UUID id);

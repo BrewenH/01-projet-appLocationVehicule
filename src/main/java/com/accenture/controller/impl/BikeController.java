@@ -35,35 +35,33 @@ public class BikeController implements BikeApi {
     }
 
 
-    @Secured("ROLE_ADMIN")
+//    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @Override
     public ResponseEntity<Void> add(BikeRequestDto requestDto) {
-        bikeService.addBike(requestDto);
-        List<BikeResponseDto> all = bikeService.findAll();
-        UUID id = all.get(all.size() - 1).id();
+        BikeResponseDto bikeResponseDto = bikeService.addBike(requestDto);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(id)
+                .buildAndExpand(bikeResponseDto.id())
                 .toUri();
         return ResponseEntity.created(location).build();
     }
 
-    @Secured("ROLE_ADMIN")
+//    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @Override
     public ResponseEntity<Void> delete(UUID id) {
         bikeService.deleteBike(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @Secured("ROLE_ADMIN")
+//    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @Override
     public ResponseEntity<BikeResponseDto> put(UUID id, @Valid BikeRequestDto requestDto) {
         BikeResponseDto responseDto = bikeService.modifyBike(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
-    @Secured("ROLE_ADMIN")
+//    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @Override
     public ResponseEntity<BikeResponseDto> patch(UUID id, BikeRequestDto requestDto) {
         BikeResponseDto responseDto = bikeService.partiallyModifyingBike(id, requestDto);

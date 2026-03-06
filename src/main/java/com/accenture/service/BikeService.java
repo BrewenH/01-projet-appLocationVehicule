@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface BikeService {
-    void addBike(BikeRequestDto dto) throws BikeException;
+    BikeResponseDto addBike(BikeRequestDto dto) throws BikeException;
     List<BikeResponseDto> findAll();
     BikeResponseDto findById(UUID id);
     void deleteBike(UUID id);

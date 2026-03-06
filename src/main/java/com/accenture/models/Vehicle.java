@@ -14,7 +14,7 @@ import java.util.UUID;
 public abstract class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String brand;

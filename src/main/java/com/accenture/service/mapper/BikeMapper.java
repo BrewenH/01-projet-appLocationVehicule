@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface BikeMapper {
-    Bike toBike(BikeRequestDto dto);
+    Bike toBike(BikeRequestDto bikeRequestDto);
 
     BikeResponseDto toBikeResponseDto(Bike bike);
 }

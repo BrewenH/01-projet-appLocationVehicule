@@ -34,7 +34,7 @@ public interface ClientApi {
     ResponseEntity<ClientResponseDto> getById(@Parameter(description = "Client ID", required = true) @PathVariable("id") UUID id);
 
     @Operation(summary = "Add new client")
-    @ApiResponse(responseCode = "201", description = "Client created")
+    @ApiResponse(responseCode = "200", description = "Client created")
     @ApiResponse(responseCode = "404", description = "Client not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PostMapping

@@ -9,6 +9,7 @@ import com.accenture.service.mapper.ClientMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,15 +27,18 @@ public class ClientServiceImpl implements ClientService{
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
     private final MessageSourceAccessor messages;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void addClient(ClientRequestDto dto) throws ClientException {
+    public ClientResponseDto addClient(ClientRequestDto dto) throws ClientException {
         check(dto);
-        Client client = clientMapper.toClient(dto);
-        clientRepository.save(client);
+        Client client = clientRepository.save(clientMapper.toClient(dto));
+        client.setPassword(passwordEncoder.encode(client.getPassword()));
+        return clientMapper.toClientResponseDto(client);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ClientResponseDto> findAll() {
         return clientRepository.findAll().stream()
                 .map(clientMapper::toClientResponseDto)

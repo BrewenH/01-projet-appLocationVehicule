@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -21,15 +22,18 @@ public class AdministratorController implements AdministratorApi {
 
     AdministratorService administratorService;
 
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @Override
     public ResponseEntity<List<AdministratorResponseDto>> getAll() {
         return ResponseEntity.ok(administratorService.findAll());
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @Override
     public ResponseEntity<AdministratorResponseDto> getById(UUID id) {
         return ResponseEntity.ok(administratorService.findById(id));
     }
+
 
     @Override
     public ResponseEntity<Void> add(@Valid AdministratorRequestDto requestDto) {
@@ -44,12 +48,14 @@ public class AdministratorController implements AdministratorApi {
         return ResponseEntity.created(location).build();
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @Override
     public ResponseEntity<Void> delete(UUID id) {
         administratorService.deleteAdministrator(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @Override
     public ResponseEntity<AdministratorResponseDto> put(UUID id, AdministratorRequestDto requestDto) {
         AdministratorResponseDto responseDto = administratorService.modifyAdministrator(id, requestDto);

@@ -24,12 +24,14 @@ public class ClientController implements ClientApi {
     private final ClientService clientService;
 
 
-    @PreAuthorize("hasRole('CLIENT')")
+
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @Override
     public ResponseEntity<List<ClientResponseDto>> getAll() {
         return ResponseEntity.ok(clientService.findAll());
     }
 
+    @PreAuthorize("hasAnyAuthority('CLIENT', 'ADMINISTRATOR')")
     @Override
     public ResponseEntity<ClientResponseDto> getById(UUID id) {
         return ResponseEntity.ok(clientService.findById(id));
@@ -38,23 +40,24 @@ public class ClientController implements ClientApi {
 
     @Override
     public ResponseEntity<Void> add(@Valid ClientRequestDto requestDto) {
-        clientService.addClient(requestDto);
-        List<ClientResponseDto> all = clientService.findAll();
-        UUID id = all.get(all.size() - 1).id();
+        ClientResponseDto clientResponseDto = clientService.addClient(requestDto);
+
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(id)
+                .buildAndExpand(clientResponseDto.id())
                 .toUri();
         return ResponseEntity.created(location).build();
     }
 
+    @PreAuthorize("hasAnyAuthority('CLIENT', 'ADMINISTRATOR')")
     @Override
     public ResponseEntity<Void> delete(UUID id) {
         clientService.deleteClient(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PreAuthorize("hasAnyAuthority('CLIENT', 'ADMINISTRATOR')")
     @Override
     public ResponseEntity<ClientResponseDto> put(UUID id, ClientRequestDto requestDto) {
         ClientResponseDto responseDto = clientService.modifyClient(id, requestDto);
