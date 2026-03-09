@@ -9,6 +9,7 @@ import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,10 +26,10 @@ public class SwaggerConfig {
                 .in("header")
                 .name("Accept-Language")
                 .required(false)
-                .description("Locale de réponse (ex: fr-FR, en-US)")
+                .description("Response locale (ex: en-US, fr-FR)")
                 .schema(new StringSchema()
                         ._default("en-US")
-                        ._enum(java.util.List.of("fr-FR", "en-US"))
+                        ._enum(java.util.List.of("en-US","fr-FR"))
                 );
         return new OpenAPI()
                 .components(new Components()
@@ -51,5 +52,19 @@ public class SwaggerConfig {
                                 .name("Apache 2.0")
                                 .url("https://www.apache.org/licenses/LICENSE-2.0.html")));
     }
+
+    @Bean
+    public OperationCustomizer addAcceptLanguageHeaderToAllOperations() {
+        return (operation, handlerMethod) -> {
+            boolean alreadyPresent = operation.getParameters() != null
+                    && operation.getParameters().stream()
+                    .anyMatch(p -> "Accept-Language".equalsIgnoreCase(p.getName()));
+
+            if (!alreadyPresent) {
+                operation.addParametersItem(new Parameter().$ref(ACCEPT_LANGUAGE_REF));
+            }
+            return operation;
+        };
+        }
 
 }

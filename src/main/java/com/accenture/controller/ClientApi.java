@@ -1,8 +1,6 @@
 package com.accenture.controller;
 
 import com.accenture.controller.advice.ErrorDto;
-import com.accenture.service.dto.CarRequestDto;
-import com.accenture.service.dto.CarResponseDto;
 import com.accenture.service.dto.ClientRequestDto;
 import com.accenture.service.dto.ClientResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +21,7 @@ public interface ClientApi {
 
     @Operation(summary = "List of all clients")
     @ApiResponse(responseCode = "200", description = "List of clients")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @GetMapping
     ResponseEntity<List<ClientResponseDto>> getAll();
 
@@ -34,7 +33,7 @@ public interface ClientApi {
     ResponseEntity<ClientResponseDto> getById(@Parameter(description = "Client ID", required = true) @PathVariable("id") UUID id);
 
     @Operation(summary = "Add new client")
-    @ApiResponse(responseCode = "200", description = "Client created")
+    @ApiResponse(responseCode = "201", description = "Client created")
     @ApiResponse(responseCode = "404", description = "Client not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PostMapping

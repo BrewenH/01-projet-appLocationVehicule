@@ -3,8 +3,6 @@ package com.accenture.controller;
 import com.accenture.controller.advice.ErrorDto;
 import com.accenture.service.dto.AdministratorRequestDto;
 import com.accenture.service.dto.AdministratorResponseDto;
-import com.accenture.service.dto.ClientRequestDto;
-import com.accenture.service.dto.ClientResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,11 +21,13 @@ public interface AdministratorApi {
 
     @Operation(summary = "List of all administrators")
     @ApiResponse(responseCode = "200", description = "List of administrators")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @GetMapping
     ResponseEntity<List<AdministratorResponseDto>> getAll();
 
     @Operation(summary = "Get administrator from his id")
     @ApiResponse(responseCode = "200", description = "Administrator found")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "404", description = "Administrator not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @GetMapping("/{id}")
@@ -35,6 +35,7 @@ public interface AdministratorApi {
 
     @Operation(summary = "Add new administrator")
     @ApiResponse(responseCode = "201", description = "Administrator created")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "404", description = "Administrator not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PostMapping
@@ -42,6 +43,7 @@ public interface AdministratorApi {
 
     @Operation(summary = "Delete administrator from his id")
     @ApiResponse(responseCode = "200", description = "Administrator deleted")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "404", description = "Administrator not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @DeleteMapping("/{id}")
@@ -49,6 +51,7 @@ public interface AdministratorApi {
 
     @Operation(summary = "Completely replace an Administrator ")
     @ApiResponse(responseCode = "200", description = "Administrator replaced")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "404", description = "Administrator not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PutMapping("/{id}")

@@ -33,6 +33,7 @@ public interface CarApi {
 
     @Operation(summary = "Add new car")
     @ApiResponse(responseCode = "201", description = "Car created")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "404", description = "Car not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PostMapping
@@ -40,6 +41,7 @@ public interface CarApi {
 
     @Operation(summary = "Delete car from his id")
     @ApiResponse(responseCode = "200", description = "Car deleted")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "404", description = "Car not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @DeleteMapping("/{id}")
@@ -47,6 +49,7 @@ public interface CarApi {
 
     @Operation(summary = "Completely replace a car ")
     @ApiResponse(responseCode = "200", description = "Car replaced")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "404", description = "Car not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PutMapping("/{id}")
@@ -54,6 +57,7 @@ public interface CarApi {
 
     @Operation(summary = "Partially modify a car")
     @ApiResponse(responseCode = "200", description = "Car partially modify")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "404", description = "Car not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PatchMapping("/{id}")

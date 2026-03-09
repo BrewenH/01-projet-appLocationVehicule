@@ -8,7 +8,6 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -41,7 +40,6 @@ public class ClientController implements ClientApi {
     @Override
     public ResponseEntity<Void> add(@Valid ClientRequestDto requestDto) {
         ClientResponseDto clientResponseDto = clientService.addClient(requestDto);
-
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -59,7 +57,7 @@ public class ClientController implements ClientApi {
 
     @PreAuthorize("hasAnyAuthority('CLIENT', 'ADMINISTRATOR')")
     @Override
-    public ResponseEntity<ClientResponseDto> put(UUID id, ClientRequestDto requestDto) {
+    public ResponseEntity<ClientResponseDto> put(UUID id, @Valid ClientRequestDto requestDto) {
         ClientResponseDto responseDto = clientService.modifyClient(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }

@@ -33,10 +33,7 @@ public class BikeServiceImpl implements BikeService {
         check(dto);
         Bike saved = bikeRepository.save(bikeMapper.toBike(dto));
         return bikeMapper.toBikeResponseDto(saved);
-//        if(dto.electric() == true)
-//            bike.setBatteryCapacity(dto.batteryCapacity());
-//        if(dto.electric() == true)
-//            bike.setAutonomy(dto.autonomy());
+
 
 
     }
@@ -128,6 +125,10 @@ public class BikeServiceImpl implements BikeService {
     private void check(BikeRequestDto dto) {
         if (dto == null)
             throw new BikeException(messages.getMessage("bike.null"));
+        if (dto.brand() == null || dto.brand().isBlank())
+            throw new BikeException(messages.getMessage("bike.brand.null"));
+        if (dto.model() == null || dto.model().isBlank())
+            throw new BikeException(messages.getMessage("bike.model.null"));
 
     }
 }

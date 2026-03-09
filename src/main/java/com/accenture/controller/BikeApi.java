@@ -33,6 +33,7 @@ public interface BikeApi {
 
     @Operation(summary = "Add new bike")
     @ApiResponse(responseCode = "201", description = "Bike created")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "400", description = "Unvalid request",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PostMapping
@@ -40,6 +41,7 @@ public interface BikeApi {
 
     @Operation(summary = "Delete bike from his id")
     @ApiResponse(responseCode = "200", description = "Bike deleted")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "404", description = "Bike not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @DeleteMapping("/{id}")
@@ -49,6 +51,7 @@ public interface BikeApi {
 
     @Operation(summary = "Completely replace a bike ")
     @ApiResponse(responseCode = "200", description = "Bike replaced")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "40", description = "Bike not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @ApiResponse(responseCode = "400", description = "Unvalid request",
@@ -58,6 +61,7 @@ public interface BikeApi {
 
     @Operation(summary = "Partially modify a bike")
     @ApiResponse(responseCode = "200", description = "Bike partially modify")
+    @ApiResponse(responseCode = "401", description = "You must be authenticated")
     @ApiResponse(responseCode = "404", description = "Bike not found",
             content = @Content(schema = @Schema(implementation = ErrorDto.class)))
     @PatchMapping("/{id}")
